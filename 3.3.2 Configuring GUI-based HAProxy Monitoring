@@ -1,0 +1,23 @@
+Step 1 Modify the HAProxy configuration file.
+In the listen section in the HAProxy configuration file, configure GUI-based HAProxy
+monitoring.
+listen admin_stat
+ bind 0.0.0.0:8443
+ mode http
+ stats refresh 30s
+ stats uri /haproxy_stats
+ stats realm Haproxy\ Statistics
+ stats auth openEuler:Huawei@123
+ stats hide-version
+admin_stat indicates the user-defined name, refresh 30s indicates the refresh frequency,
+uri /haproxy_stats indicates the URI to the monitoring page, and
+openEuler:Huawei@123 indicates the authentication information for logging in to this
+page.
+
+
+Step 2 View the monitoring page.
+After the configuration is complete, restart the HAProxy service. Open a browser on the
+PC, enter http://EIP:8443/haproxy_stats in the address box, and press Enter. In the
+displayed dialog box, enter the user name and password to log in to the monitoring
+page.
+
