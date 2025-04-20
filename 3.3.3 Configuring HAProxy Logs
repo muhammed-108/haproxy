@@ -1,0 +1,28 @@
+Step 1 Modify the HAProxy configuration file.
+HAProxy logs can be defined in the global, default, or frontend section. This lab uses
+global as an example. Add log configuration information to the HAProxy configuration
+file as follows:
+
+global
+ log 127.0.0.1 local3 info
+ chroot /var/lib/haproxy
+ pidfile /var/run/haproxy.pid
+ user haproxy
+ group haproxy
+ daemon
+maxconn 4000
+
+
+
+Step 2 Modify rsyslog configuration information.
+Add the following contents to the end of /etc/rsyslog.conf:
+local3.* /var/log/haproxy.log
+$ModLoad imudp
+$UDPServerRun 514
+
+
+After steps 1 and 2 are complete, restart the HAProxy and rsyslog services. After the
+restart, the system automatically creates a log file, as shown in the following figure.
+
+
+
